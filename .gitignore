@@ -1,0 +1,12 @@
+/*
+
+# dir
+
+!/src
+!/lib
+!/include
+
+# file
+
+!/.gitignore
+!/README.md

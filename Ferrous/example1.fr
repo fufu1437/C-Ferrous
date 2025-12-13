@@ -1,5 +1,0 @@
-// 导包示例
-
-import a //导入包a
-
-from a import x //从a包导入x函数 或 类

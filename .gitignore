@@ -5,8 +5,12 @@
 !/src
 !/lib
 !/include
+!/compiler
+!/compiler_include
+!/Ferrous
 
 # file
 
 !/.gitignore
-!/README.md
+!/README.mdd
+!/GCC_C17_version="15.2.1 20251112"

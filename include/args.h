@@ -8,8 +8,8 @@ enum{
 };
 
 typedef struct{
-    char* v; // 参数
-    int t;   // 类型
+    char* value; // 参数
+    int type;   // 类型
 }ARG;
 
 int get_args(char** s, ARG* a);

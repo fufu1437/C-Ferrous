@@ -1,0 +1,6 @@
+// 建包示例
+
+// 定义并导出funtion_name
+export fun funtion_name() {
+
+}

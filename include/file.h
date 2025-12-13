@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char* read_line(FILE* stream);
-long long getFileSize(char* name);
+// char* read_line(FILE* stream);
+long long getFileSize(const char* name);
 
 #endif

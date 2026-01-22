@@ -1,11 +1,6 @@
-#ifndef file_ferrous_fufu1437_h
-#define file_ferrous_fufu1437_h
+#ifndef file_fufu1437_h
+#define file_fufu1437_h
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-// char* read_line(FILE* stream);
-long long getFileSize(const char* name);
+long long getFileSize(const char *filename);
 
 #endif

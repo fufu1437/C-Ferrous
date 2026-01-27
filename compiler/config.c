@@ -1,66 +1,66 @@
 #include "config.h"
 
-const char *fe_lexer_type_char(TokenType t) {
-    switch(t) {
+const char *fe_lexer_type_char(TokenType type) {
+    switch(type) {
         case TOKEN_Add:
-            return "Add\0";
+            return "Add";
         case TOKEN_AddAss:
-            return "AddAss\0";
+            return "AddAss";
         case TOKEN_Ass:
-            return "Ass\0";
+            return "Ass";
         case TOKEN_Div:
-            return "Div\0";
+            return "Div";
         case TOKEN_DivAss:
-            return "DivAss\0";
+            return "DivAss";
         case TOKEN_EOF:
-            return "EOF\0";
+            return "EOF";
         case TOKEN_Eq:
-            return "Eq\0";
+            return "Eq";
         case TOKEN_Identifier:
-            return "Identifier\0";
+            return "Identifier";
         case TOKEN_LBrace:
-            return "LBrace {\0";
+            return "LBrace {";
         case TOKEN_RBrace:
-            return "RBrace }\0";
+            return "RBrace }";
         case TOKEN_LBracket:
-            return "LBracket [\0";
+            return "LBracket [";
         case TOKEN_RBracket:
-            return "RBracket ]\0";
+            return "RBracket ]";
         case TOKEN_LParen:
-            return "LParen (\0";
+            return "LParen (";
         case TOKEN_RParen:
-            return "RParen )\0";
+            return "RParen )";
         case TOKEN_Mod:
-            return "Mod\0";
+            return "Mod";
         case TOKEN_ModAss:
-            return "ModAss\0";
+            return "ModAss";
         case TOKEN_Mul:
-            return "Mul\0";
+            return "Mul";
         case TOKEN_MulAss:
-            return "MulAss\0";
+            return "MulAss";
         case TOKEN_NULL:
-            return "NULL\0";
+            return "NULL";
         case TOKEN_String:
-            return "String\0";
+            return "String";
         case TOKEN_Sub:
-            return "Sub\0";
+            return "Sub";
         case TOKEN_SubAss:
-            return "SubAss\0";
+            return "SubAss";
         case TOKEN_Semi:
-            return "Semi ;\0";
+            return "Semi ;";
         case TOKEN_Number:
-            return "Number\0";
+            return "Number";
         case TOKEN_Sharp:
-            return "Sharp\0";
+            return "Sharp";
         case TOKEN_Lt:
-            return "Lt <\0";
+            return "Lt <";
         case TOKEN_Gt:
-            return "Gt >\0";
+            return "Gt >";
         case TOKEN_Dot:
-            return "Dot\0";
+            return "Dot";
         case TOKEN_Simgle_Quote:
-            return "Simgle_Quote '\0";
+            return "Simgle_Quote '";
         case TOKEN_Double_Quote:
-            return "Double_Quote \"\0";
+            return "Double_Quote \"";
     }
 }

@@ -32,7 +32,7 @@ int main(int args, char *argv[]) {
 
     }while(fuerr != FUERR_FILE_END);
     // free(mode->value);
-    printf("arr len: %d\n", fuarr_len(TkArr));
+    printf("arr len: %ld\n", fuarr_len(TkArr));
 
     for(size_t i=0;i<fuarr_len(TkArr);i++) {
         fe_char *temp = ((Token*)fuarr_get(TkArr, i))->value;

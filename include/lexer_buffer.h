@@ -7,18 +7,29 @@
 
 // typedef struct FileStream FileStream;
 
+typedef enum State{
+    State_Null = 100,
+
+    State_Read_Buf1,
+    State_Read_Buf2,
+
+    State_Buf1_End,
+    State_Buf2_End,
+}State;
+
 typedef struct FileStream{
+    State used;
     fe_int size;
     fe_char *buf1;
     fe_char *buf2;
     fe_int buf1_len;
     fe_int buf2_len;
-    fe_int used;
 }FileStream;
 
-FileStream *fe_lexer_creat_file_stream(size_t size);
+// 状态
+extern State pattern;
 
-int fe_lexer_read_file_stream(FILE *f, FileStream *fs);
+FileStream *fe_lexer_creat_file_stream(size_t size);
 
 void fe_lexer_free_file_stream(FileStream *fs);
 

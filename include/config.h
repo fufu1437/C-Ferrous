@@ -1,8 +1,15 @@
 #ifndef config_fe_fufu1437_h
 #define config_fe_fufu1437_h
 
+// #define _BOOL
+
 typedef long long fe_int;
 typedef char fe_char;
+
+// #define True 1
+// #define False 0
+// 
+// typedef char bool;
 
 typedef enum TokenType{
         TOKEN_NULL,
@@ -67,7 +74,7 @@ typedef enum TokenType{
 
         // 字符串
         TOKEN_String,
-        // 数
+        // 十进制数
         TOKEN_Number,
         // 二进制数
         TOKEN_BitNumber,

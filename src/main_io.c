@@ -25,25 +25,16 @@ int main(int args, char *argv[]) {
         errno = 0;
         mode = fe_lexer_next_token_io(f);
 
-        if(errno == E_number_err) {
-            char buf[1000] = {'\0'};
-            printf("%s-%d:%d ", argv[1], mode->line, mode->cow);
-            printf("%s\n", mode->val);
-            for(i64 i=0;i < mode->cow-1;i++) {
-                buf[i] = ' ';
+
+        if(mode!=NULL) {
+            if(mode->type == TOKEN_Number) {
+                printf("%d  %f\n", mode->type, mode->val_num);
             }
-            printf("%s^\n", buf);
-        }
-        else{
-            if(mode!=NULL) {
-                if(mode->type == TOKEN_Number) {
-                    printf("%d  %f\n", mode->type, mode->val_num);
-                }
-                else{
-                    printf("%d  %s\n", mode->type, mode->val);
-                }
+            else{
+                printf("%d  %s\n", mode->type, mode->val);
             }
         }
+
         
     }while(errno != E_FEILE_END);
     // free(mode->val);

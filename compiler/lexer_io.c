@@ -79,6 +79,8 @@ Token *fe_lexer_next_token_io(FILE *f) {
             if(ch == EOF) { errno = E_FEILE_END; }
         }while (isdigit(ch)||isalpha(ch)|| ch == '.');
 
+        
+        // 十六进制转十进制
         if(buffer[0] =='0' &&(buffer[1] =='x' || buffer[1] =='X')) {
             double t_out = 0.0;
             i64 base = 1;
@@ -105,6 +107,7 @@ Token *fe_lexer_next_token_io(FILE *f) {
             }
             val_num = t_out;
         }
+        // 二进制转十进制
         else if(buffer[0] =='0' &&(buffer[1] =='b' || buffer[1] =='B')) {
             i64 t_out = 0;
             for(i64 i= 2;i < index ; i++) {

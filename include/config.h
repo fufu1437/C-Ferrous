@@ -13,10 +13,8 @@ typedef char fe_char;
 enum{
     // 文件读取完毕
     E_FEILE_END = 134,
-    // 二进制解析错误
-    E_2_number_err,
-    // 十六进制解析错误
-    E_16_number_err,
+    // Number解析错误
+    E_number_err,
 };
 
 // #define True 1

@@ -25,9 +25,14 @@ int main(int args, char *argv[]) {
         errno = 0;
         mode = fe_lexer_next_token_io(f);
 
-        if(errno == E_2_number_err) {
+        if(errno == E_number_err) {
+            char buf[1000] = {'\0'};
+            printf("%s-%d:%d ", argv[1], mode->line, mode->cow);
             printf("%s\n", mode->val);
-            printf("%d\n", mode->cow);
+            for(i64 i=0;i < mode->cow-1;i++) {
+                buf[i] = ' ';
+            }
+            printf("%s^\n", buf);
         }
         else{
             if(mode!=NULL) {

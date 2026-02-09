@@ -57,10 +57,6 @@ Token *fe_lexer_next_token_io(FILE *f) {
 
     }
 
-
-
-
-
     if(isalpha(ch)||ch=='_') {
         i32 o_cow = cow;
         do{

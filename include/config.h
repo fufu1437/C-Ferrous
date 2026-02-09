@@ -3,8 +3,21 @@
 
 // #define _BOOL
 
-typedef long long fe_int;
+#include <stdint.h>
+
+typedef int32_t i32;
+typedef int64_t i64;
 typedef char fe_char;
+
+
+enum{
+    // 文件读取完毕
+    E_FEILE_END = 134,
+    // 二进制解析错误
+    E_2_number_err,
+    // 十六进制解析错误
+    E_16_number_err,
+};
 
 // #define True 1
 // #define False 0
@@ -76,20 +89,20 @@ typedef enum TokenType{
         TOKEN_String,
         // 十进制数
         TOKEN_Number,
-        // 二进制数
-        TOKEN_BitNumber,
-        // 十六进制数
-        TOKEN_HexNumber,
+        // 浮点数
+        TOKEN_Float,
         // ;
         TOKEN_Semi,
 }TokenType;
 
 typedef struct{
     TokenType type;
-    fe_char *value;
-    fe_int size;
-    fe_int line; // token 列
-    fe_int cow; // token 行
+    fe_char *val;
+    double val_num;
+    i32 size;
+    i32 line; // token 列
+    i32 cow; // token 行
+    i32 err;// 错误码
 }Token;
 
 const char *fe_lexer_type_char(TokenType t);

@@ -9,9 +9,11 @@
 !/compiler_include
 !/Ferrous
 !/.vscode
+!/tools
 
 # file
 
 !/.gitignore
 !/README.md
-!/sresion
+!/version
+

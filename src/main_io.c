@@ -1,19 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
-// #include <string.h>
-// #include <ctype.h>
+#include <errno.h>
 
+#include "config.h"
 #include "fu_arr.h"
 #include "lexer_io.h"
-#include "fu_err.h"
+// #include "fu_err.h"
 // #include "ast.h"
 
-char* fgetstr(FILE* f);
+// char* fgetstr(FILE* f);
 
-int fuerr = FUERR_NULL;
+// int fuerr = FUERR_NULL;
 
 int main(int args, char *argv[]) {
-    FU_ARR *TkArr = fuarr_creat_arr(10);
+    // FU_ARR *TkArr = fuarr_creat_arr(10);
     FILE* f= fopen(argv[1], "r");
     if(f==NULL) {
         return -1;
@@ -22,27 +22,29 @@ int main(int args, char *argv[]) {
     Token* mode;
     int index=0;
     do {
+        errno = 0;
         mode = fe_lexer_next_token_io(f);
 
-        if(mode!=NULL) {
-            printf("%d  %s\n", mode->type, mode->value);
-            printf("%s index: %d\n", fe_lexer_type_char(mode->type),index++);
-            fuarr_push(TkArr, mode);
+        if(errno == E_2_number_err) {
+            printf("%s\n", mode->val);
+            printf("%d\n", mode->cow);
         }
-
-    }while(fuerr != FUERR_FILE_END);
-    // free(mode->value);
-    printf("arr len: %ld\n", fuarr_len(TkArr));
-
-    for(size_t i=0;i<fuarr_len(TkArr);i++) {
-        fe_char *temp = ((Token*)fuarr_get(TkArr, i))->value;
-        if(temp!=NULL) {
-            free(temp);
+        else{
+            if(mode!=NULL) {
+                if(mode->type == TOKEN_Number) {
+                    printf("%d  %f\n", mode->type, mode->val_num);
+                }
+                else{
+                    printf("%d  %s\n", mode->type, mode->val);
+                }
+            }
         }
-        // free(fuarr_get(TkArr,i));
-    }
+        
+    }while(errno != E_FEILE_END);
+    // free(mode->val);
+
+
     // fuarr_free_container(TkArr);
-    fuarr_free_all(TkArr);
     fclose(f);
     return 0;
 }

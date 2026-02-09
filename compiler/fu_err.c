@@ -1,6 +1,6 @@
 #include "fu_err.h"
 #include <stdio.h>
-int fuerr;
+// int fuerr;
 
 const char *fuerr_char(FU_ERR err) {
     switch(err) {

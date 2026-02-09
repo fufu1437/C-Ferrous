@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-// #include <errno.h>
+#include <errno.h>
 
 #include "lexer_io.h"
-#include "fu_err.h"
+// #include "fu_err.h"
 #include "config.h"
 
 int peek(FILE *f);
@@ -13,13 +13,16 @@ int peek(FILE *f);
 
 Token *fe_lexer_next_token_io(FILE *f) {
     Token *tk = malloc(sizeof(Token));
-    if(tk==NULL) {fuerr = FUERR_NO_MEMRY; return NULL; }
+    if(tk==NULL) {errno = ENOMEM; return NULL; }
 
-    fe_int line=1; fe_int cow=0; fe_int size=400; TokenType mode=TOKEN_NULL;
+    i64 line=1, cow=0, size=400;
+    i32 err = 0;
+    double val_num = 0.0;
+    TokenType mode=TOKEN_NULL;
     fe_char *buffer = malloc(size+1);
-    if(buffer == NULL) {fuerr = FUERR_NO_MEMRY; return NULL; }
+    if(buffer == NULL) {errno = ENOMEM; return NULL; }
 
-    fe_int index = 0;
+    i64 index = 0;
 
     int ch;
     do{
@@ -27,7 +30,7 @@ Token *fe_lexer_next_token_io(FILE *f) {
         cow++;
         if(ch == '\n') { line++; cow=0; }
         if(ch == EOF) {
-            fuerr = FUERR_FILE_END;
+            errno = E_FEILE_END;
             mode = TOKEN_EOF;
             buffer[index++] = 'E';
             buffer[index++] = 'O';
@@ -56,15 +59,15 @@ Token *fe_lexer_next_token_io(FILE *f) {
 
 
 
-    
+
 
     if(isalpha(ch)||ch=='_') {
-        fe_int o_cow = cow;
+        i32 o_cow = cow;
         do{
             buffer[index++] = ch;
             ch = fgetc(f);
             cow++;
-            if(ch == EOF) {fuerr = FUERR_FILE_END; mode = TOKEN_EOF; break;}
+            if(ch == EOF) {errno = E_FEILE_END; mode = TOKEN_EOF; break;}
         }while(isalnum(ch)||ch == '_');
         if(ch == '\n') {line++;cow = 0;}
         ungetc(ch, f);
@@ -72,20 +75,72 @@ Token *fe_lexer_next_token_io(FILE *f) {
     }
 
     else if(isdigit(ch)) {
-        if(ch=='0'&& (peek(f)=='x'||peek(f)=='X')) {
-            mode = TOKEN_HexNumber;
-        }
-        else if(ch=='0'&& (peek(f)=='b'||peek(f)=='B')) {
-            mode = TOKEN_BitNumber;
-        }
         mode = TOKEN_Number;
         do{
             buffer[index++] = ch;
             ch = fgetc(f);
+            cow++;
+            if(ch == EOF) { errno = E_FEILE_END; }
+        }while (isdigit(ch)||isalpha(ch)|| ch == '.');
+
+        if(buffer[0] =='0' &&(buffer[1] =='x' || buffer[1] =='X')) {
+            double t_out = 0.0;
+            i64 base = 1;
+            i64 t_index = 2;
+            for(i64 i = index -1; i >=2;i--) {
+                fe_char ch = buffer[i];
+                if(ch>='A'&&ch<='Z') {
+                    t_out += (ch - 55) * base;
+                }
+                else if(ch>='a'&&ch<='z') {
+                    t_out += (ch - 87) * base;
+                }
+                else if(ch>='0'&&ch<='9') {
+                    t_out += (ch - '0') * base;
+                }
+                else{
+                    errno = E_16_number_err;
+                    err = errno;
+                    cow = i + 1;
+                    t_out = 0;
+                    break;
+                }
+                base <<= 4;
+            }
+            val_num = t_out;
         }
-        while (isdigit(ch)||
-        (ch=='x'||ch=='X')||
-        (ch=='b'||ch=='B'));
+        else if(buffer[0] =='0' &&(buffer[1] =='b' || buffer[1] =='B')) {
+            i64 t_out = 0;
+            for(i64 i= 2;i < index ; i++) {
+                if(!(buffer[i] == '1' || buffer[i] == '0')) {
+                    errno = E_2_number_err;
+                    err = errno;
+                    cow = i + 1;
+                    t_out = 0;
+                    break;
+                }
+                t_out <<= 1;
+                t_out |= buffer[i] - '0';
+            }
+            val_num = (double)t_out;
+        }
+        else{
+            i64 dot = 1;
+            i32 m_dot = 0;
+            for(i64 i=0; i< index -1; i++) {
+                if(buffer[i] == '.') {
+                    mode = TOKEN_Float;
+                    m_dot = 1;
+                    continue;
+                }
+                if(!m_dot) {
+                    val_num += buffer[i] - '0';
+                }
+                else{
+                    val_num += (buffer[i] - '0') / (10 * dot);
+                }
+            }
+        }
     }
 
     else if(ch=='/') { cow++; buffer[index++] = ch; mode = (peek(f) == '=' ? (ch = fgetc(f), buffer[index++]=ch, cow++, TOKEN_DivAss) : TOKEN_Div); }
@@ -124,20 +179,20 @@ Token *fe_lexer_next_token_io(FILE *f) {
     if(temp !=NULL) {
         buffer = temp;
     }
+    tk->err = err;
     tk->cow = cow;
     tk->line = line;
     tk->type = mode;
     tk->size = size;
-    tk->value = buffer;
+    tk->val = buffer;
+    tk->val_num = val_num;
     return tk;
-
-
 }
 
 int peek(FILE *f) {
     int ch = fgetc(f);
-    if(ch==EOF) return EOF;
     ungetc(ch, f);
+    if(ch==EOF) return EOF;
     return ch;
 }
 

@@ -19,11 +19,11 @@ typedef enum State{
 
 typedef struct FileStream{
     State used;
-    fe_int size;
+    i32 size;
     fe_char *buf1;
     fe_char *buf2;
-    fe_int buf1_len;
-    fe_int buf2_len;
+    i32 buf1_len;
+    i32 buf2_len;
 }FileStream;
 
 // 状态

@@ -66,14 +66,14 @@ int fe_getc(FileStream *fs) {
 
 Token *fe_lexer_next_token_buffer(FILE *f, FileStream *fs) {
     Token *tk = malloc(sizeof(Token));
-    fe_int size = 0;
-    fe_int line = 0;
-    fe_int cow = 0;
+    i32 size = 0;
+    i32 line = 0;
+    i32 cow = 0;
     TokenType mode = TOKEN_NULL;
-    fe_int buf_size = 400;
+    i32 buf_size = 400;
     fe_char *buffer = malloc(buf_size * sizeof(fe_char) + 1);
-    fe_int use_buf = 0;
-    fe_int index = 0;
+    i32 use_buf = 0;
+    i32 index = 0;
     buffer[buf_size] = '\0';
     fe_char *buf;
     #define peek() buf[index+1]

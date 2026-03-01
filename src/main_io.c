@@ -5,12 +5,12 @@
 #include "config.h"
 #include "fu_arr.h"
 #include "lexer_io.h"
-// #include "fu_err.h"
+// #include "fe_err.h"
 // #include "ast.h"
 
 // char* fgetstr(FILE* f);
 
-// int fuerr = FUERR_NULL;
+// int fuerr = FEERR_NULL;
 
 int main(int args, char *argv[]) {
     // FU_ARR *TkArr = fuarr_creat_arr(10);
@@ -28,10 +28,10 @@ int main(int args, char *argv[]) {
 
         if(mode!=NULL) {
             if(mode->type == TOKEN_Number) {
-                printf("%d  %f\n", mode->type, mode->val_num);
+                printf("%s  %f\n", fe_lexer_type_char(mode->type), mode->val_num);
             }
             else{
-                printf("%d  %s\n", mode->type, mode->val);
+                printf("%s  %s\n", fe_lexer_type_char(mode->type), mode->val);
             }
         }
 

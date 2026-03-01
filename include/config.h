@@ -12,9 +12,9 @@ typedef char fe_char;
 
 enum{
     // 文件读取完毕
-    E_FEILE_END = 134,
-    // Number解析错误
-    E_number_err,
+    E_FEILE_END = 1024000,
+    // Number格式错误
+    E_NUMBER_FORMAT,
 };
 
 // #define True 1
@@ -99,7 +99,7 @@ typedef struct{
     double val_num;
     i32 size;
     i32 line; // token 列
-    i32 cow; // token 行
+    i32 row; // token 行
     i32 err;// 错误码
 }Token;
 

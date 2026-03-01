@@ -5,7 +5,7 @@
 
 // #include "file.h"
 #include "config.h"
-#include "fu_err.h"
+#include "fe_err.h"
 #include "lexer_buffer.h"
 
 State Pattern = State_Null;
@@ -26,11 +26,11 @@ FileStream *fe_lexer_creat_file_stream(size_t size) {
 }
 
 int fe_lexer_read_buf1(FILE *f, FileStream *fs) {
-    if(f  == NULL) { fuerr = FUERR_NULL_PRT; return 1; }
-    if(fs == NULL) { fuerr = FUERR_NULL_PRT; return 1; }
+    if(f  == NULL) { feerr = FEERR_NULL_PRT; return 1; }
+    if(fs == NULL) { feerr = FEERR_NULL_PRT; return 1; }
     fread(fs->buf1, fs->size, sizeof(fe_char), f);
     if(fs->buf1 == NULL) {
-        fuerr = FUERR_FILE_READ_FAIL;
+        feerr = FEERR_FILE_READ_FAIL;
         return 2;
     }
     fs->buf1_len = strlen(fs->buf1);
@@ -39,11 +39,11 @@ int fe_lexer_read_buf1(FILE *f, FileStream *fs) {
 }
 
 int fe_lexer_read_buf2(FILE *f, FileStream *fs) {
-    if(f  == NULL) { fuerr = FUERR_NULL_PRT; return 1; }
-    if(fs == NULL) { fuerr = FUERR_NULL_PRT; return 1; }
+    if(f  == NULL) { feerr = FEERR_NULL_PRT; return 1; }
+    if(fs == NULL) { feerr = FEERR_NULL_PRT; return 1; }
     fread(fs->buf2, fs->size, sizeof(fe_char), f);
     if(fs->buf2 == NULL) {
-        fuerr = FUERR_FILE_READ_FAIL;
+        feerr = FEERR_FILE_READ_FAIL;
         return 2;
     }
     fs->buf2_len = strlen(fs->buf2);
@@ -59,7 +59,7 @@ void fe_lexer_free_file_stream(FileStream *fs) {
 }
 
 int fe_getc(FileStream *fs) {
-    if(fs==NULL) { fuerr = FUERR_NULL_PRT; return -1; }
+    if(fs==NULL) { feerr = FEERR_NULL_PRT; return -1; }
 
     return 0;
 }
@@ -68,7 +68,7 @@ Token *fe_lexer_next_token_buffer(FILE *f, FileStream *fs) {
     Token *tk = malloc(sizeof(Token));
     i32 size = 0;
     i32 line = 0;
-    i32 cow = 0;
+    i32 row = 0;
     TokenType mode = TOKEN_NULL;
     i32 buf_size = 400;
     fe_char *buffer = malloc(buf_size * sizeof(fe_char) + 1);
@@ -103,9 +103,9 @@ Token *fe_lexer_next_token_buffer(FILE *f, FileStream *fs) {
         buffer = temp;
     }
 
-    tk->cow = cow;
+    tk->row = row;
     tk->line = line;
     tk->type = mode;
-    tk->value = buffer;
+    tk->val = buffer;
     return tk;
 }

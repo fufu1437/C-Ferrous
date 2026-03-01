@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 // #include "fu_arr.h"
-// #include "fu_err.h"
+// #include "fe_err.h"
 #include "lexer_buffer.h"
 
 int main(void) {

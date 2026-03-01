@@ -62,5 +62,7 @@ const char *fe_lexer_type_char(TokenType type) {
             return "Simgle_Quote '";
         case TOKEN_Double_Quote:
             return "Double_Quote \"";
+        case TOKEN_Float:
+            return "Float";
     }
 }

@@ -13,7 +13,7 @@
 
 # file
 
+!/package.json
 !/.gitignore
 !/README.md
 !/version
-

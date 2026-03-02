@@ -200,7 +200,10 @@ Token *fe_lexer_next_token_io(FILE *f) {
     tk->val_num = val_num;
     return tk;
 
-    lexer_io_err:
+
+
+
+lexer_io_err:
 
     if(err == E_NUMBER_FORMAT) {
         ungetc(ch, f);

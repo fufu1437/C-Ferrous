@@ -1,3 +1,4 @@
+#define STBDS_NO_SHORT_NAMES 
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
@@ -5,6 +6,10 @@
 #include "config.h"
 #include "fu_arr.h"
 #include "lexer_io.h"
+
+#define STB_DS_IMPLEMENTATION
+#include "stb_ds.h"
+
 // #include "fe_err.h"
 // #include "ast.h"
 
@@ -19,6 +24,13 @@ int main(int args, char *argv[]) {
         return -1;
     }
     // char* mode = NULL;
+    typedef struct{
+        char* key;
+        int value;
+    }hmmap;
+    hmmap * fa= NULL;
+    stbds_hmput(fa,"asd", 12);
+    printf("%d\n",stbds_hmget(fa,"asd"));
     Token* mode;
     int index=0;
     do {

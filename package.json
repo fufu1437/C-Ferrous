@@ -1,8 +1,0 @@
-{
-  "":"",
-  "scripts": {
-    "build": "gcc src/main_io.c compiler/lexer_io.c compiler/config.c  -I./include -o main",
-    "dev": "npm run -s build; ./main test.fe",
-    "run": "./main test.fe"
-  }
-}

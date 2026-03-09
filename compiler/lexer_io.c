@@ -9,7 +9,6 @@
 
 int peek(FILE *f);
 
-
 Token *fe_lexer_next_token_io(FILE *f) {
     Token *tk = malloc(sizeof(Token));
     if(tk==NULL) { errno = ENOMEM; return NULL; }

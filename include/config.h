@@ -28,7 +28,8 @@ typedef enum TokenType{
 
         // Operators : 0,
 
-        /** 标识符 */ TOKEN_Identifier,
+        // 标识符
+        TOKEN_Identifier,
 
         // (
         TOKEN_LParen  ,
